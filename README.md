@@ -1,66 +1,75 @@
 # Concert Management Database
 
-An Oracle SQL relational database project for managing concert operations, including venues, stages, artists, event staff, attendees, tickets, stalls and stall purchases.
+A relational database solution for organising the core operations of a concert event. Developed with Oracle SQL, the database manages venue information, stages, artists, event personnel, attendees, tickets, stalls and stall purchases.
 
-> **Project type:** Collaborative academic database project  
-> **Platform:** Oracle Database  
-> **Status:** Portfolio refinement — SQL scripts still require execution and verification in Oracle SQL Developer.
+## Project overview
 
-## Overview
+The Concert Management Database demonstrates the application of relational database principles to an event-management scenario. It organises related information into structured tables and uses keys and integrity constraints to maintain consistent relationships between records.
 
-This project demonstrates relational database design, Oracle SQL table creation, primary and foreign keys, data integrity constraints, sample data and reporting queries.
+### Key features
 
-## Database tables
+- Structured relational database schema
+- Primary keys and foreign-key relationships
+- Data integrity constraints, including required fields, unique values and validation rules
+- Sample records for demonstrating database operations
+- SQL queries for retrieving information and generating operational summaries
+- Entity-relationship documentation
 
-| Table | Purpose |
+## Database structure
+
+The database consists of nine tables:
+
+| Table | Description |
 |---|---|
-| VENUE | Concert venue details |
-| PARAMEDIC_TEAM | Medical response teams and venue association |
-| STAGE | Stages within a venue |
-| ARTIST | Performers and stage assignments |
-| SECURITY_TEAM | Security teams and optional assignments |
-| STALL | Food, drinks and merchandise stalls |
-| ATTENDEE | Attendee information |
-| TICKET | Ticket details and attendee allocation |
-| STALL_PURCHASE | Associative transaction table connecting attendees and stalls |
-
-## Entity-relationship diagram
-
-The diagram in [documentation/relationships.md](documentation/relationships.md) shows the tables and how they relate. GitHub renders the Mermaid diagram directly in that file.
+| `VENUE` | Stores concert venue details. |
+| `PARAMEDIC_TEAM` | Stores medical response team information and venue assignments. |
+| `STAGE` | Stores stages associated with a venue. |
+| `ARTIST` | Stores performer details and stage assignments. |
+| `SECURITY_TEAM` | Stores security team information and operational assignments. |
+| `STALL` | Stores food, beverage and merchandise stall details. |
+| `ATTENDEE` | Stores attendee information. |
+| `TICKET` | Stores ticket details and attendee allocations. |
+| `STALL_PURCHASE` | Records purchases made by attendees at stalls. |
 
 ## Repository structure
 
-- sql/01_create_tables.sql — creates the database tables and constraints
-- sql/02_insert_sample_data.sql — inserts fictional demonstration records
-- sql/03_reporting_queries.sql — example reporting queries
-- documentation/database-overview.md — scope, design decisions and assumptions
-- documentation/relationships.md — ER diagram and relationship explanation
+```text
+concert-management-database/
+├── README.md
+├── .gitignore
+├── sql/
+│   ├── 01_create_tables.sql
+│   ├── 02_insert_sample_data.sql
+│   └── 03_reporting_queries.sql
+└── documentation/
+    ├── database-overview.md
+    └── relationships.md
+```
 
-## Run the project
+## Getting started
 
-1. Connect to an Oracle Database schema using Oracle SQL Developer.
-2. Run sql/01_create_tables.sql in a clean schema.
-3. Run sql/02_insert_sample_data.sql.
-4. Run individual queries from sql/03_reporting_queries.sql.
+1. Open Oracle SQL Developer and connect to an Oracle Database schema.
+2. Execute `sql/01_create_tables.sql` to create the database tables.
+3. Execute `sql/02_insert_sample_data.sql` to populate the tables with sample records.
+4. Run the required statements in `sql/03_reporting_queries.sql` to explore the database.
 
-Run the scripts in that order. The creation script does not drop existing tables.
+Execute the scripts in the order shown above.
 
-## Design improvements
+## Database design
 
-- Monetary values use NUMBER(10,2), not character columns.
-- Telephone numbers use VARCHAR2 to preserve leading zeroes and international prefixes.
-- Ticket records reference VENUE_ID instead of duplicating venue addresses.
-- Constraints validate required values, supported categories and non-negative prices.
-- STALL_PURCHASE has its own identity key so an attendee can make multiple purchases at the same stall.
+The schema uses Oracle data types suited to the information being stored. Monetary values use numeric columns, while telephone numbers are stored as text to preserve leading zeroes and international prefixes. Foreign keys establish relationships between tables, while check and unique constraints support data consistency.
 
-## Contribution and academic integrity
+The ticket table references the venue through `VENUE_ID`, avoiding duplicated venue-address information. The `STALL_PURCHASE` table uses its own primary key to allow multiple purchase records for the same attendee and stall.
 
-This is a collaborative academic project. My contribution focused on the Oracle SQL database implementation and scripting, alongside group members who contributed to the wider design and coursework deliverables. This repository presents a refined portfolio version and does not claim sole authorship.
+The entity relationships and design assumptions are described in the [database overview](documentation/database-overview.md) and [relationship documentation](documentation/relationships.md).
 
-## Validation status
+## Project contribution
 
-The scripts have been prepared for Oracle SQL, but have **not yet been executed or independently tested in your Oracle environment**. Please run them in order and report any errors so they can be corrected.
+This is a collaborative academic project. My contribution focused on the Oracle SQL database implementation and scripting, alongside group members who contributed to the wider database design and project deliverables.
 
-## Future improvements
+## Technologies
 
-Potential extensions include event scheduling across multiple dates, ticket status and payment records, security shift assignments and medical incident records. These should be added only after the requirements and business rules are agreed.
+- Oracle Database
+- Oracle SQL
+- SQL Developer
+- Git and GitHub
