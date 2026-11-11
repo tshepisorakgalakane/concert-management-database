@@ -2,29 +2,59 @@
 
 ## Purpose
 
-The Concert Management Database organises core information for a concert event. It stores venue, stage, performer, staff, attendee, ticket and stall-purchase records in related relational tables.
+The Concert Management Database organises information required for the management of a concert event. It provides a structured way to store and retrieve venue, stage, performer, staff, attendee, ticket and stall-purchase information.
 
-## Scope
+## Database scope
 
-The portfolio schema contains nine tables: VENUE, PARAMEDIC_TEAM, STAGE, ARTIST, SECURITY_TEAM, STALL, ATTENDEE, TICKET and STALL_PURCHASE. STALL_PURCHASE is the associative transaction table connecting attendees and stalls.
+The database contains nine related tables:
 
-## Design decisions
+1. `VENUE`
+2. `PARAMEDIC_TEAM`
+3. `STAGE`
+4. `ARTIST`
+5. `SECURITY_TEAM`
+6. `STALL`
+7. `ATTENDEE`
+8. `TICKET`
+9. `STALL_PURCHASE`
 
-- **Keys:** Every table has a primary key. Foreign keys represent relationships and prevent references to missing parent records.
-- **Data types:** VARCHAR2 stores text and contact numbers; NUMBER(10,2) stores monetary values; TIMESTAMP records purchase date and time.
-- **Validation:** NOT NULL, UNIQUE and CHECK constraints enforce required fields, unique non-null emails and valid categories or numeric values.
-- **Venue address:** TICKET stores VENUE_ID rather than duplicating the venue address. The address can be retrieved by joining TICKET to VENUE.
-- **Purchases:** STALL_PURCHASE uses an identity-generated PURCHASE_ID. This permits an attendee to make multiple purchases at the same stall.
+The `STALL_PURCHASE` table connects attendees and stalls by recording individual purchase transactions.
 
-## Assumptions and limitations
+## Design principles
 
-- A venue can contain multiple stages and stalls.
-- An artist may be unassigned or assigned to one stage in this model.
-- An attendee may be associated with zero or one paramedic team. This relationship is retained from the original coursework concept and should be checked against the group's approved business rules.
-- A ticket may be unassigned or assigned to one attendee. An attendee may be associated with multiple tickets.
-- Security team venue, stage and artist references are optional. The current schema does not enforce that the selected stage and artist belong to the same venue; that rule would require additional modelling.
-- This design does not include event scheduling across multiple dates, payments, refunds, ticket scanning or staff shift history.
+### Primary and foreign keys
 
-## Future development
+Each table has a primary key that uniquely identifies its records. Foreign keys define relationships between tables and maintain referential integrity.
 
-Possible extensions include an EVENT table, ticket status and payment records, security shift assignments and medical incident records. Add these only after requirements and business rules have been agreed.
+### Data types
+
+- `VARCHAR2` stores names, descriptions, identifiers and contact numbers.
+- `NUMBER(10,2)` stores monetary values.
+- `TIMESTAMP` stores purchase date and time information.
+
+Telephone numbers are stored as text because they are identifiers rather than values used in arithmetic calculations.
+
+### Integrity constraints
+
+- `NOT NULL` ensures required fields contain values.
+- `UNIQUE` prevents duplicate non-null email addresses within the relevant table.
+- `CHECK` constraints restrict selected categories and numeric values.
+- Foreign-key constraints ensure referenced parent records exist.
+
+### Venue information
+
+The `TICKET` table stores `VENUE_ID` as a foreign key instead of duplicating the venue address. Venue details can be retrieved through a join with the `VENUE` table.
+
+### Stall purchases
+
+The `STALL_PURCHASE` table uses a generated `PURCHASE_ID` primary key. This allows the same attendee to make multiple purchases at the same stall while keeping each transaction separately identifiable.
+
+## Relationships and business rules
+
+The relationships are illustrated in [relationships.md](relationships.md). The schema includes optional assignments where a record may not yet be associated with another record, such as a ticket that has not been allocated to an attendee.
+
+Security team records can reference a venue, stage and artist. The current structure does not enforce that the selected stage and artist belong to the same venue; this rule can be implemented if required by the project's business rules.
+
+## Further development
+
+Possible extensions include event scheduling, ticket status tracking, payment records, security shift assignments and medical incident records. These additions can be considered as the system's requirements evolve.
