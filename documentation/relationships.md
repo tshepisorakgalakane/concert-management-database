@@ -1,10 +1,8 @@
 # Entity Relationships
 
-An **entity-relationship diagram (ERD)** is a visual map of a database. It shows the tables, the links between them and how many records can be associated across each link. It helps developers understand and review a database structure.
+An entity-relationship diagram (ERD) illustrates the structure of a relational database. It identifies the tables, the relationships between them and the number of records that may be associated across each relationship.
 
-## Diagram
-
-GitHub renders this Mermaid diagram directly in this Markdown file.
+## Entity-relationship diagram
 
 ```mermaid
 erDiagram
@@ -23,30 +21,27 @@ erDiagram
     STALL ||--o{ STALL_PURCHASE : records
 ```
 
-## Relationship summary
+## Relationship descriptions
 
-| Parent | Child | Meaning |
+| Parent table | Related table | Relationship |
 |---|---|---|
-| VENUE | PARAMEDIC_TEAM | A venue can have multiple teams; a team may be unassigned |
-| VENUE | STAGE | A venue can contain multiple stages; each stage belongs to one venue |
-| VENUE | STALL | A venue can contain multiple stalls; each stall belongs to one venue |
-| VENUE | SECURITY_TEAM | A venue can have multiple security teams; a team may be unassigned |
-| STAGE | ARTIST | A stage can host multiple artists; an artist may be assigned to one stage or none |
-| STAGE / ARTIST | SECURITY_TEAM | A security team may optionally reference a stage and an artist |
-| VENUE | ATTENDEE | A venue can be associated with multiple attendees |
-| PARAMEDIC_TEAM | ATTENDEE | A team may be associated with multiple attendees; attendee assignment is optional |
-| VENUE | TICKET | A venue can have multiple tickets; each ticket references one venue |
-| ATTENDEE | TICKET | An attendee may have multiple tickets; a ticket assignment is optional |
-| ATTENDEE | STALL_PURCHASE | One attendee can make multiple purchases |
-| STALL | STALL_PURCHASE | One stall can have multiple purchase records |
+| `VENUE` | `PARAMEDIC_TEAM` | A venue can have multiple paramedic teams. A team may be unassigned. |
+| `VENUE` | `STAGE` | A venue can contain multiple stages. Each stage belongs to one venue. |
+| `VENUE` | `STALL` | A venue can contain multiple stalls. Each stall belongs to one venue. |
+| `VENUE` | `SECURITY_TEAM` | A venue can have multiple security teams. A team may be unassigned. |
+| `STAGE` | `ARTIST` | A stage can host multiple artists. An artist may be assigned to one stage or none. |
+| `STAGE` / `ARTIST` | `SECURITY_TEAM` | A security team may optionally reference a stage and an artist. |
+| `VENUE` | `ATTENDEE` | A venue can be associated with multiple attendees. |
+| `PARAMEDIC_TEAM` | `ATTENDEE` | A team can be associated with multiple attendees. An attendee's team assignment is optional. |
+| `VENUE` | `TICKET` | A venue can have multiple tickets. Each ticket references one venue. |
+| `ATTENDEE` | `TICKET` | An attendee may have multiple tickets. A ticket may be unassigned or assigned to one attendee. |
+| `ATTENDEE` | `STALL_PURCHASE` | An attendee can make multiple purchases. Each purchase belongs to one attendee. |
+| `STALL` | `STALL_PURCHASE` | A stall can have multiple purchase records. Each purchase belongs to one stall. |
 
-## Notation
+## ERD notation
 
-- `||` means exactly one.
-- `o|` means zero or one.
-- `o{` means zero or many.
-- `|{` means one or many.
+- `||` — exactly one
+- `o|` — zero or one
+- `o{` — zero or many
+- `|{` — one or many
 
-## Modelling note
-
-This diagram documents the portfolio schema implemented in the SQL scripts. It does not replace the original group's approved ERD or business rules. In particular, the optional security assignments do not currently enforce that the selected stage and artist belong to the same venue.
