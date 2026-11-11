@@ -6,7 +6,7 @@ An **entity-relationship diagram (ERD)** is a visual map of a database. It shows
 
 GitHub renders this Mermaid diagram directly in this Markdown file.
 
-\`\`\`mermaid
+```mermaid
 erDiagram
     VENUE ||--o{ PARAMEDIC_TEAM : has
     VENUE ||--o{ STAGE : contains
@@ -21,7 +21,7 @@ erDiagram
     ATTENDEE o|--o{ TICKET : receives
     ATTENDEE ||--o{ STALL_PURCHASE : makes
     STALL ||--o{ STALL_PURCHASE : records
-\`\`\`
+```
 
 ## Relationship summary
 
@@ -42,10 +42,10 @@ erDiagram
 
 ## Notation
 
-- \`||\` means exactly one.
-- \`o|\` means zero or one.
-- \`o{\` means zero or many.
-- \`|{\` means one or many.
+- `||` means exactly one.
+- `o|` means zero or one.
+- `o{` means zero or many.
+- `|{` means one or many.
 
 ## Modelling note
 
